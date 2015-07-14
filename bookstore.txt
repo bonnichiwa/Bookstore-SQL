@@ -1,0 +1,32 @@
+1)
+select e.isbn, p.name from editions as e inner join publishers as p ON e.publisher_id = p.id WHERE p.name = 'Random House’;
+
+2)
+select e.isbn, b.title from editions as e join publishers as p on e.publisher_id = p.id join books as b on e.book_id = b.id WHERE p.name = 'Random House';
+
+3)
+select e.isbn, b.title, s.retail, s.stock from editions as e join publishers as p on e.publisher_id = p.id join books as b on e.book_id = b.id join stock as s on e.isbn = s.isbn WHERE p.name = 'Random House';
+
+4)
+select e.isbn, b.title, s.retail, s.stock from editions as e join publishers as p on e.publisher_id = p.id join books as b on e.book_id = b.id join stock as s on e.isbn = s.isbn WHERE p.name = 'Random House' AND s.stock > 0;
+
+5)
+select isbn, book_id, edition, publisher_id, publication, CASE WHEN type='h' THEN 'hardcover' WHEN type='p' THEN 'paperback' END FROM editions;
+
+6)
+select b.title, e.publication from books as b left join editions as e on b.id = e.book_id;
+  
+7)
+select sum(stock) AS all_stock FROM stock;
+
+8)
+select avg(cost) AS average_cost, avg(retail) AS average_retail, avg(retail) - avg(cost) AS average_profit FROM stock; 
+
+9)
+select e.book_id, s.stock from editions as e join stock as s on e.isbn = s.isbn ORDER BY s.stock desc limit 1;
+
+10)
+select a.id, concat(a.last_name,', ', a.first_name) AS full_name,count(b.title) as "Number of books" from authors as a left join books as b on a.id = b.author_id group by a.id;
+
+11)
+select a.id, concat(a.last_name,', ', a.first_name) AS full_name,count(b.title) as "Number of books" from authors as a left join books as b on a.id = b.author_id group by a.id order by count(b.title) desc;
